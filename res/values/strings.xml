@@ -9,6 +9,7 @@
     <string name="title_activity_calendar_fragment">CalendarFragment</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_map_fragment">MapFragment</string>
+
     <string name="sun">Sun</string>
 	<string name="mon">Mon</string>
 	<string name="tue">Tue</string>
