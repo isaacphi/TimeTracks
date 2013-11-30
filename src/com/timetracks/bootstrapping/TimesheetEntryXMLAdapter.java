@@ -12,7 +12,8 @@ public class TimesheetEntryXMLAdapter {
 	
 	public static List<TimesheetEntry> parseFile(String filename) {
 		// load xml from file;
-		xml = getXMLFromFile(filename);
-		return TimesheetEntryXMLAdapater(xml).getEntries();
+		//xml = getXMLFromFile(filename);
+		//return TimesheetEntryXMLAdapater(xml).getEntries();
+		return null;
 	}
 }
