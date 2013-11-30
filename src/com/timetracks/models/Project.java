@@ -1,5 +1,7 @@
 package com.timetracks.models;
 
-public class Project {
+import com.roscopeco.ormdroid.Entity;
+
+public class Project extends Entity {
 	public String name;
 }

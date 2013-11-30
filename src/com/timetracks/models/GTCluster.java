@@ -2,7 +2,9 @@ package com.timetracks.models;
 
 import java.util.Date;
 
-public class GTCluster {
+import com.roscopeco.ormdroid.Entity;
+
+public class GTCluster extends Entity {
 	public int id;
 	public double c_x;
 	public double c_y;

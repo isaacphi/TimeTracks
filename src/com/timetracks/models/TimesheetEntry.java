@@ -2,7 +2,9 @@ package com.timetracks.models;
 
 import java.util.Date;
 
-public class TimesheetEntry {
+import com.roscopeco.ormdroid.Entity;
+
+public class TimesheetEntry extends Entity {
 	public Date startDate;
 	public Date endDate;
 	public Project project;
