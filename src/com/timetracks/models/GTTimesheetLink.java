@@ -7,6 +7,7 @@ import com.roscopeco.ormdroid.Entity;
 // which were overriden by the user (for subsequent performance improvements
 // of the tagging algorithm).
 public class GTTimesheetLink extends Entity {
+	public int id;
 	public GTCluster gtCluster;
 	public TimesheetEntry timesheetEntry;
 	public boolean taggedByUser;
