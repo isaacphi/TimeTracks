@@ -6,4 +6,5 @@ public class GTSequence {
 	public double radius;
 	public DateTime startTime;
 	public DateTime endTime;
+	public boolean userProvided;
 }
