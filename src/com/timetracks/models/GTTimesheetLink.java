@@ -5,7 +5,7 @@ package com.timetracks.models;
 // which were overriden by the user (for subsequent performance improvements
 // of the tagging algorithm).
 public class GTTimesheetLink {
-	public GTSequence gtSequence;
+	public GTCluster gtCluster;
 	public TimesheetEntry timesheetEntry;
 	public boolean taggedByUser;
 	public boolean isExcluded;
