@@ -12,8 +12,9 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
+		// I think I want to return a LinearLayout
         View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
-         
+		
         return rootView;
     }
 }
