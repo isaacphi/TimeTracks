@@ -1,7 +1,7 @@
 package com.timetracks;
 
 import com.timetracks.CalendarFragment;
-import com.timetracks.MapFragment;
+import com.timetracks.GoogleMapFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,7 +21,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             return new CalendarFragment();
         case 1:
             // Games fragment activity
-            return new MapFragment();
+            return new GoogleMapFragment();
         }
  
         return null;
