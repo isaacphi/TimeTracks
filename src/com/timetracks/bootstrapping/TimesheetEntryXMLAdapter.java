@@ -11,14 +11,15 @@ import com.timetracks.models.TimesheetEntry;
 
 public class TimesheetEntryXMLAdapter {
 	public TimesheetEntryXMLAdapter(String xml) {
-		this.xml = xml;
+		//this.xml = xml;
 	}
 	
 	
 	
 	public static List<TimesheetEntry> parseFile(String filename) {
 		// load xml from file;
-		xml = getXMLFromFile(filename);
-		return TimesheetEntryXMLLoader(xml).getEntries();
+		//xml = getXMLFromFile(filename);
+		//return TimesheetEntryXMLLoader(xml).getEntries();
+		return null;
 	}
 }
