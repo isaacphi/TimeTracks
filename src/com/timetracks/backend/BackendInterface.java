@@ -6,7 +6,7 @@ import java.util.Date;
 import com.timetracks.models.GTSequence;
 import com.timetracks.models.Project;
 import com.timetracks.models.TimesheetEntry;
-import com.timetracks.models.TimeSpaceProjectAssociation;
+import com.timetracks.models.GTTimesheetLink;
 
 public interface BackendInterface {
 	public List<Project> getAllProjects();
@@ -17,11 +17,11 @@ public interface BackendInterface {
 	
 	// I'm not sure this is what method you want.
 	// It's not clear what this even means.
-	public List<TimeSpaceProjectAssociation> getTimesheetsAndGeos(Date startTime, Date endtime);
+	public List<GTTimesheetLink> getTimesheetsAndGeos(Date startTime, Date endtime);
 
 	public void setNoteToTimesheetEntry(TimesheetEntry entry, String note);
 	public void setProjectToTimesheetEntry(TimesheetEntry entry, Project project);
 
 	public void deleteTimesheetEntry(TimesheetEntry entry);
-	public void noteExclusion(TimeSpaceProjectAssociation tagging);
+	public void noteExclusion(GTTimesheetLink tagging);
 }
