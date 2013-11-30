@@ -1,6 +1,10 @@
 package com.timetracks.models;
 
-public class GeoTaggingInformation {
+// Output by the tagging algorithm.
+// Annotates which attributes were suggested by the backend, and
+// which were overriden by the user (for subsequent performance improvements
+// of the tagging algorithm).
+public class TimeSpaceProjectAssociation {
 	public GTSequence gtSequence;
 	public TimesheetEntry timesheetEntry;
 	public boolean taggedByUser;
