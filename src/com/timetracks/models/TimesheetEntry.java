@@ -1,10 +1,10 @@
 package com.timetracks.models;
 
-import com.timetracks.models.Project;
+import java.util.Date;
 
 public class TimesheetEntry {
-	public DateTime startTime;
-	public DateTime endTime;
+	public Date startDate;
+	public Date endDate;
 	public Project project;
 	public String note;
 	public String colourCode;
