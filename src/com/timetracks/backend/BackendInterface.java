@@ -8,6 +8,17 @@ import com.timetracks.models.Project;
 import com.timetracks.models.TimesheetEntry;
 import com.timetracks.models.GTTimesheetLink;
 
+/**
+ * BackendInterface.
+ * 
+ * Assume all these methods make at least one database call, and therefore
+ * must not be called from within the UI thread (e.g. spawn an AsyncTask).
+ * 
+ * UI should feel free to set some Entity member data directly (e.g. colourCode)
+ * and call the appropriate save method (but this is also blocking).
+ *  
+ * @author wgeorge
+ */
 public interface BackendInterface {
 	public List<Project> getAllProjects();
 	public void createProject(Project project);
