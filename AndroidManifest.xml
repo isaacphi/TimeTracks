@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:icon="@drawable/logo"
     package="com.timetracks"
+    android:icon="@drawable/logo"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -53,6 +53,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.timetracks.MultiSpinner"
+            android:label="@string/multi_spinner">
+        </activity>
 
         <meta-data
             android:name="ormdroid.database.name"
@@ -69,6 +72,14 @@
         <activity
             android:name="com.timetracks.ExcludeLocationActivity"
             android:label="@string/title_activity_exclude_location" >
+        </activity>
+        <activity
+            android:name="com.timetracks.AddExistingProjectActivity"
+            android:label="@string/title_activity_add_existing_project" >
+        </activity>
+        <activity
+            android:name="com.timetracks.NewProjectActivity"
+            android:label="@string/title_activity_new_project" >
         </activity>
     </application>
 

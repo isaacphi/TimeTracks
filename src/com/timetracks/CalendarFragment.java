@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.AsyncTask;
@@ -123,12 +124,14 @@ public class CalendarFragment extends Fragment {
     }
          
         private class RectView extends View{
-                int [] colors = {getResources().getColor(R.color.blue), getResources().getColor(R.color.red),
-                                getResources().getColor(R.color.yellow), getResources().getColor(R.color.green),
-                                getResources().getColor(R.color.Orange), getResources().getColor(R.color.Azure)};
+                int [] colors = {Color.MAGENTA, getResources().getColor(R.color.yellow),
+                                getResources().getColor(R.color.green), getResources().getColor(R.color.purple),
+                                getResources().getColor(R.color.blue), getResources().getColor(R.color.Orange)};
             int leftX, rightX, topY, bottomY, yOffset, color;
             private Paint rectPaint;
+            private Paint rectOutPaint;
             private Rect rectangle;
+            private Rect rectOut;
             public RectView(Context context, int _leftX, int _rightX, int _topY,
                                             int _bottomY, int _yOffset, int _color){
                 super(context);
@@ -142,15 +145,24 @@ public class CalendarFragment extends Fragment {
             }
 
             private void init(){
-                    rectPaint = new Paint();
+                rectPaint = new Paint();
                 rectPaint.setARGB(255, 0, 0, 0);
                 rectPaint.setColor(colors[color]);
                 rectPaint.setStrokeWidth(2);
                 rectangle = new Rect(leftX, topY+yOffset, rightX, bottomY+yOffset);
+                
+                rectOutPaint = new Paint();
+                rectOutPaint.setARGB(255, 0, 0, 0);
+                rectOutPaint.setStyle(Paint.Style.STROKE);
+                rectOutPaint.setColor(Color.GRAY);
+                rectOutPaint.setStrokeWidth(5);
+                rectOut = new Rect(leftX+2, topY+yOffset-2, rightX-2, bottomY+yOffset+2);
             }
             protected void onDraw(Canvas canvas){
                 super.onDraw(canvas);
                 canvas.drawRect(rectangle, rectPaint);
+                canvas.drawRect(rectOut, rectOutPaint);
+
             }
         }
         
