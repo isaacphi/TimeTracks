@@ -80,7 +80,7 @@ public class Clusterer {
 					cluster.c_x = average(xList); // needs averaging
 					cluster.c_y = average(yList);
 					// Radius should be something smart, like stddev/sqrt(N), (or based on measurement error)
-					cluster.radius = max(maximum(xList)-minimum(xList), maximum(yList)-minimum(yList));
+					cluster.radius = (max(maximum(xList)-minimum(xList), maximum(yList)-minimum(yList)))/(Math.sqrt((double)xList.size()));
 					cluster.userProvided = false;
 					cluster.startDate = pointList.get(i-count).dates;
 					cluster.endDate = pointList.get(i).dates;
@@ -99,7 +99,7 @@ public class Clusterer {
 					cluster.c_x = average(xList); // needs averaging
 					cluster.c_y = average(yList);
 					// Radius should be something smart, like stddev/sqrt(N), (or based on measurement error)
-					cluster.radius = max(maximum(xList)-minimum(xList), maximum(yList)-minimum(yList));
+					cluster.radius = (max(maximum(xList)-minimum(xList), maximum(yList)-minimum(yList)))/(Math.sqrt((double)xList.size()));
 					cluster.userProvided = false;
 					cluster.startDate = pointList.get(i-count).dates;
 					cluster.endDate = pointList.get(i).dates;
