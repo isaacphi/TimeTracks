@@ -59,10 +59,10 @@ public class Clusterer {
 		int timeStepThreshold = 15;
 		boolean newLocation = false;
 		int count = 0;
-		List<Double> xList = null;
-		List<Double> yList = null;
+		List<Double> xList = new ArrayList<Double>();
+		List<Double> yList = new ArrayList<Double>();
 		
-		for (int i = 0; i < pointList.size(); i++) {
+		for (int i = 0; i < pointList.size()-1; i++) {
 			// Check if x and y are within a certain change in distance (distParam)
 			if (absolute(pointList.get(i).x - pointList.get(i+1).x) < distThreshold) {
 				count++;
@@ -87,12 +87,12 @@ public class Clusterer {
 					gtcClusterList.add(cluster);
 					newLocation = false;
 					count = 0;
-					xList = null;
-					yList = null;
+					xList.clear();
+					yList.clear();
 				}
 			}
 			// Catch the EOF
-			if (i == pointList.size()-1) {
+			if (i == pointList.size()-2) {
 				if (newLocation == true) {
 					// Add the location
 					GTCluster cluster = new GTCluster();
@@ -106,8 +106,8 @@ public class Clusterer {
 					gtcClusterList.add(cluster);
 					newLocation = false;
 					count = 0;
-					xList = null;
-					yList = null;
+					xList.clear();
+					yList.clear();
 				}	
 			}	
 		}
