@@ -1,26 +1,32 @@
 package com.timetracks;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.londatiga.android.ActionItem;
 import net.londatiga.android.QuickAction;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.timetracks.backend.Backend;
+import com.timetracks.backend.BackendInterface;
+import com.timetracks.bootstrapping.GTClusterValues;
 import com.timetracks.models.GTCluster;
-import com.timetracks.models.TimesheetEntry;
 
 public class GoogleMapFragment extends Fragment {
 
@@ -31,11 +37,15 @@ public class GoogleMapFragment extends Fragment {
 	private static final int ID_EXCLUDE = 3;
 	
 	
-	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
+		Date startDate = new Date();
+		Date endDate = new Date();
+        // Set the asynchronous tasks going
+        new PopulateMapTask().execute(startDate, endDate);
+		
         View rootView = inflater.inflate(R.layout.activity_map_fragment, container, false);
         try {
 			initializeMap();
@@ -43,15 +53,17 @@ public class GoogleMapFragment extends Fragment {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
-        Button button = (Button) rootView.findViewById(R.id.tempbutton);
-        button.setOnClickListener(new OnClickListener() {
-		QuickAction quickAction = setQuickActionButtons();	
+        googleMap.setOnMarkerClickListener(new OnMarkerClickListener() {
+			
 			@Override
-			public void onClick(View v) {
+			public boolean onMarkerClick(Marker arg0) {
+				View v = getView();
+				QuickAction quickAction = setQuickActionButtons();	
 				quickAction.show(v);
+				return true;
 			}
 		});
+
         return rootView;
     }
 
@@ -59,21 +71,6 @@ public class GoogleMapFragment extends Fragment {
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getActivity().getFragmentManager().findFragmentById(
 					R.id.map)).getMap(); 
-			/*
-			Marker toronto = googleMap.addMarker(new MarkerOptions().position(
-					TORONTO).title("Toronto"));
-			// Move the camera instantly to hamburg with a zoom of 15.
-			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(TORONTO, 15));
-
-			// Zoom in, animating the camera.
-			googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-			// check if map is created successfully or not
-			if (googleMap == null) {
-				Toast.makeText(getActivity().getApplicationContext(),
-						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
-						.show();
-						
-			}*/
 		}
 
 	}
@@ -81,31 +78,10 @@ public class GoogleMapFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		initializeMap();
-		// Recognize where we're getting data from now.
-		Intent i = getActivity().getIntent();
-		if (i != null && i.getExtras() != null)	{
-			// If neither of these is null, we know that it's coming from calendar view, and view on map
-			Bundle bundle = i.getExtras();
-			List<TimesheetEntry> timesheetEntryList = (List<TimesheetEntry>) bundle.getSerializable(TimesheetEntry.TIMESHEET_ENTRY_TAG);
-			List<GTCluster> gtClusterList = (List<GTCluster>) bundle.getSerializable(GTCluster.GT_CLUSTER_TAG);
-			
-			// Do a marker colour lookup
-			// TODO: Need to make this variable on the timesheetEntry.colourCode
-			int colour = getResources().getColor(R.color.blue);
-			for (int j = 0; j < timesheetEntryList.size(); j++)	{
-				TimesheetEntry timeSheetEntry = timesheetEntryList.get(j);
-				GTCluster gtCluster = gtClusterList.get(j);
-				
-				MarkerOptions marker = new MarkerOptions().position(new LatLng(gtCluster.c_x, gtCluster.c_y));
-				marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-				Toast.makeText(getActivity().getApplicationContext(), marker.toString(), Toast.LENGTH_LONG).show();
-				googleMap.addMarker(marker);
-			}
-		
-		}
-		
+		initializeMap();	
 	}
+	
+	
 	public QuickAction setQuickActionButtons()	{
 		
 		Intent intent = getActivity().getIntent();
@@ -127,6 +103,7 @@ public class GoogleMapFragment extends Fragment {
 		quickAction.addActionItem(viewOtherFragment);
 		quickAction.addActionItem(tagItem);
 		quickAction.addActionItem(exclude);
+
 		
 		quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
 			@Override
@@ -134,12 +111,17 @@ public class GoogleMapFragment extends Fragment {
 				ActionItem actionItem = quickAction.getActionItem(pos);
 				
 				if (actionId == ID_VIEW_OTHER_FRAGMENT) {
-					// Start Activity of view Other Fragment
+					Intent i1 = new Intent(getActivity(), getActivity().getClassLoader().getClass());
+					// Add filter of how legend is going to be
+					i1.putExtra("CALENDAR_FILTER", "");
+					startActivity(i1);
 					
 				} else if (actionId == ID_TAG) {
-					// Select Activity of Tagging or Retagging
+					Intent i2 = new Intent(getActivity(), TagProjectActivity.class);
+					startActivity(i2);
 				} else {
-					// Start Activity of Exclude
+					Intent i3 = new Intent(getActivity(), ExcludeLocationActivity.class);
+					startActivity(i3);
 				}
 			}
 		});
@@ -150,7 +132,55 @@ public class GoogleMapFragment extends Fragment {
 				// Nothing to display, just close the window naturally
 			}
 		});
+		
 		return quickAction;
 	} 
+	
+	/**
+	 * We want to call this asynchronous task at the start of every onCreate instance. We will get the time sheet entries
+	 * from the beginning of the week (Sunday), and then add the tags to the map. We will pick up the project info if 
+	 * it's already been programmed. 
+	 * @author Ivan
+	 *
+	 */
+	private class PopulateMapTask extends AsyncTask<Date, Void, List<LatLng>>	{
+
+
+		float[] colours = {BitmapDescriptorFactory.HUE_BLUE, BitmapDescriptorFactory.HUE_RED, BitmapDescriptorFactory.HUE_YELLOW, BitmapDescriptorFactory.HUE_GREEN, BitmapDescriptorFactory.HUE_ORANGE, BitmapDescriptorFactory.HUE_AZURE};
+		
+		/**
+		 * This task will always have two parameters: start date and end date
+		 */
+		@Override
+		protected List<LatLng> doInBackground(Date... params) {
+			BackendInterface dao = new Backend();
+			//List<TimesheetEntry> entries = dao.getTimesheetEntries(params[0], params[1]);
+			List<GTCluster> clusters = GTClusterValues.getClusters();//dao.getGTClustersForTimesheetEntries(entries);
+			// Now populate the data, and prep data to be sent to the fragments
+			// For maps, we want c_x, c_y to reverse geocode, and display the dialog
+			// How do we account for 
+			List<LatLng> list = new ArrayList<LatLng>();
+			for (GTCluster cluster : clusters) {
+				LatLng latlng = new LatLng(cluster.c_x, cluster.c_y);
+				list.add(latlng);
+			}
+			return list;
+		}
+
+		@Override
+		protected void onPostExecute(List<LatLng> result) {
+			// This is where we populate the markers in Google Maps!
+			int count = 0;
+			for (LatLng latlng : result){
+				MarkerOptions options = new MarkerOptions();
+				options.position(latlng);
+				options.icon(BitmapDescriptorFactory.defaultMarker(colours[count%colours.length]));
+				googleMap.addMarker(options);
+				count++;
+			}
+			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(result.get(0), 12));
+		}
+		
+	}
 }
 

@@ -70,6 +70,14 @@
             android:name="com.timetracks.QuickActionDialogActivity"
             android:label="@string/title_activity_quick_action_dialog" >
         </activity>
+        <activity
+            android:name="com.timetracks.TagProjectActivity"
+            android:label="@string/title_activity_tag_project" >
+        </activity>
+        <activity
+            android:name="com.timetracks.ExcludeLocationActivity"
+            android:label="@string/title_activity_exclude_location" >
+        </activity>
     </application>
 
 </manifest>
