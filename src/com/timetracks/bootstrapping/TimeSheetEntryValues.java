@@ -9,13 +9,13 @@ import com.timetracks.models.TimesheetEntry;
 
 public class TimeSheetEntryValues {
 
-	private Date getDate(String hyphenatedString) {
+	private static Date getDate(String hyphenatedString) {
 		String[] pargs = hyphenatedString.split("-");
 		GregorianCalendar gc = new GregorianCalendar(Integer.parseInt(pargs[0]), Integer.parseInt(pargs[1]), Integer.parseInt(pargs[2]), Integer.parseInt(pargs[3]), Integer.parseInt(pargs[4]), Integer.parseInt(pargs[5]));
 		return gc.getTime();
 	}
 	
-	public List<TimesheetEntry> getEntries() {
+	public static List<TimesheetEntry> getEntries() {
 		List<TimesheetEntry> list = new ArrayList<TimesheetEntry>();
 		TimesheetEntry entry = new TimesheetEntry();
 		
