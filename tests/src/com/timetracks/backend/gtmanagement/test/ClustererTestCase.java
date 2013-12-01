@@ -5,19 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import junit.framework.TestCase;
-//import android.test.ApplicationTestCase;
 
-//import com.roscopeco.ormdroid.ORMDroidApplication;
 import com.timetracks.backend.gtmanagement.Clusterer;
 import com.timetracks.models.GTCluster;
 import com.timetracks.models.GTPoint;
 
 public class ClustererTestCase extends TestCase{
-
-	/*public ClustererTestCase() {
-		super(ORMDroidApplication.class);
-	}*/
-	
 	public List<GTPoint> pointList = null;
 	public void setUp() {
 		pointList = new ArrayList<GTPoint>();
