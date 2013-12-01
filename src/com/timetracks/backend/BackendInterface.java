@@ -8,20 +8,41 @@ import com.timetracks.models.Project;
 import com.timetracks.models.TimesheetEntry;
 import com.timetracks.models.GTTimesheetLink;
 
+/**
+ * BackendInterface.
+ * 
+ * Assume all these methods make at least one database call, and therefore
+ * must not be called from within the UI thread (e.g. spawn an AsyncTask).
+ * 
+ * UI should feel free to set some Entity member data directly (e.g. colourCode)
+ * and call the appropriate save method (but this is also blocking).
+ *  
+ * @author wgeorge
+ */
 public interface BackendInterface {
 	public List<Project> getAllProjects();
 	public void createProject(Project project);
 
 	public List<TimesheetEntry> getTimesheetEntries(Date startTime, Date endTime);
-	public List<GTCluster> getGTClustersForTimesheetEntries(List<TimesheetEntry> entries);
+	public List<GTCluster> getGTClustersForTimesheetEntries(List<TimesheetEntry> entryList);
 	
 	// I'm not sure this is what method you want.
-	// It's not clear what this even means.
 	public List<GTTimesheetLink> getTimesheetsAndGeos(Date startTime, Date endtime);
 
 	public void setNoteToTimesheetEntry(TimesheetEntry entry, String note);
 	public void setProjectToTimesheetEntry(TimesheetEntry entry, Project project);
 
 	public void deleteTimesheetEntry(TimesheetEntry entry);
-	public void noteExclusion(GTTimesheetLink tagging);
+	
+	/**
+	 * Mark any GTCluster associated with a TimesheetEntry in the provided
+	 * date range as excluded. This call may effect many TimesheetEntry objects
+	 * created by the tagging algorithm, and thus a full UI refresh is likely 
+	 * necessary. 
+	 *   
+	 * @param cluster
+	 * @param startDate
+	 * @param endDate
+	 */
+	public void excludeGTCluster(GTCluster cluster, Date startDate, Date endDate);
 }
