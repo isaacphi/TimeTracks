@@ -1,6 +1,5 @@
 package com.timetracks.backend.test;
 
-import java.io.File;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -8,8 +7,8 @@ import java.util.List;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.ApplicationTestCase;
 
-import com.roscopeco.ormdroid.Entity;
 import com.roscopeco.ormdroid.ORMDroidApplication;
+import com.timetracks.Helpers;
 import com.timetracks.backend.Backend;
 import com.timetracks.models.GTCluster;
 import com.timetracks.models.GTPoint;
@@ -80,24 +79,14 @@ public class BackendTest extends ApplicationTestCase<ORMDroidApplication>{
 		assertEquals(0, backend.getAllProjects().size());
 	}
 	
-	private Date dateHelper(String string) {
-		String[] parts = string.split("-");
-		int[] int_parts = new int[parts.length];
-		for(int i=0; i<parts.length; i++) {
-			int_parts[i] = Integer.parseInt(parts[i]);
-		}
-		return new GregorianCalendar(int_parts[0], int_parts[1], int_parts[2], int_parts[3], int_parts[4], int_parts[5]).getTime();
-		
-	}
-	
 	public void testGetTimesheetEntries () {
 		assertEquals(0, backend.getAllTimesheetEntries().size());
 		Date[] dateRange = new Date[6];
-		dateRange[0] = dateHelper("2013-12-01-09-00-00");
-		dateRange[1] = dateHelper("2013-12-01-10-00-00");
-		dateRange[2] = dateHelper("2013-12-01-11-00-00");
-		dateRange[3] = dateHelper("2013-12-01-12-00-00");
-		dateRange[4] = dateHelper("2013-12-01-13-00-00");
+		dateRange[0] = Helpers.dateHelper("2013-12-01-09-00-00");
+		dateRange[1] = Helpers.dateHelper("2013-12-01-10-00-00");
+		dateRange[2] = Helpers.dateHelper("2013-12-01-11-00-00");
+		dateRange[3] = Helpers.dateHelper("2013-12-01-12-00-00");
+		dateRange[4] = Helpers.dateHelper("2013-12-01-13-00-00");
 		// will create 4 timesheet entries
 		
 		for(int i=0; i<dateRange.length-1; i++) {
@@ -108,8 +97,8 @@ public class BackendTest extends ApplicationTestCase<ORMDroidApplication>{
 		}
 		
 		List<TimesheetEntry> entryList = backend.getTimesheetEntries(
-												dateHelper("2013-12-01-9-15-00"),
-												dateHelper("2013-12-01-11-30-00"));
+												Helpers.dateHelper("2013-12-01-9-15-00"),
+												Helpers.dateHelper("2013-12-01-11-30-00"));
 		assertEquals(3, entryList.size());		
 	} 
 	
