@@ -3,6 +3,7 @@ package com.timetracks.backend.gtmanagement.test;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.test.ApplicationTestCase;
@@ -13,6 +14,7 @@ import com.timetracks.backend.gtmanagement.GTManager;
 import com.timetracks.models.DatabaseInfo;
 import com.timetracks.models.GTCluster;
 import com.timetracks.models.GTPoint;
+import com.timetracks.models.GTTimesheetLink;
 
 public class GTManagementTest extends ApplicationTestCase<ORMDroidApplication>{
 
@@ -70,12 +72,22 @@ public class GTManagementTest extends ApplicationTestCase<ORMDroidApplication>{
 	}
 	
 	public void testSummarizeThree() {
-		assertEquals(4, gtManager.generateLinks(startDate, endDate));
+		assertEquals(4, gtManager.generateLinks(startDate, endDate).size());
 	}
 	
 	public void testGetLinks() {
-		assertEquals(2, gtManager.getLinks(startDate, midDate).size());
-		assertEquals(5, gtManager.getLinks(startDate, endDate).size());
-		assertEquals(5, Entity.query(GTCluster.class).executeMulti().size());
+		List<GTTimesheetLink> linkList;
+		
+		linkList = gtManager.getLinks(startDate, midDate);
+		assertNotNull(linkList);
+		assertEquals(2, linkList.size());
+		
+		linkList = gtManager.getLinks(startDate, endDate);
+		assertNotNull(linkList);
+		assertEquals(5, linkList.size());
+		
+		List<GTCluster> clusterList = Entity.query(GTCluster.class).executeMulti();
+		assertNotNull(clusterList);
+		assertEquals(5, clusterList.size());
 	}
 }

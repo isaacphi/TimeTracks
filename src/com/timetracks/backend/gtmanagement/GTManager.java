@@ -105,9 +105,11 @@ public class GTManager {
 			}
 		}*/
 		List<GTTimesheetLink> gtTimesheetLinks = Tagger.createTimesheetEntriesFor(clusterList);
-		for(GTTimesheetLink link:gtTimesheetLinks) {
-			link.timesheetEntry.save();
-			link.save();
+		if(gtTimesheetLinks != null) {
+			for(GTTimesheetLink link:gtTimesheetLinks) {
+				link.timesheetEntry.save();
+				link.save();
+			}
 		}
 		return gtTimesheetLinks;
 	}
