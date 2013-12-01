@@ -18,6 +18,10 @@ public class GTTimesheetLink extends Entity {
 	public boolean projectSetByUser=false;
 	public boolean noteSetByUser=false;
 	
+	public static GTTimesheetLink getForGTCluster(GTCluster gtCluster) {
+		return Entity.query(GTTimesheetLink.class).where(eql("gtCluster", gtCluster)).execute();		
+	}
+	
 	public static GTTimesheetLink getForTimesheetEntry(TimesheetEntry entry) {
 		return Entity.query(GTTimesheetLink.class).where(eql("timesheetEntry", entry)).execute();
 	}
