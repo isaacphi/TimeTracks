@@ -3,7 +3,7 @@ package com.timetracks;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.timetracks.bootstrapping.TimeSheetEntryValues;
+import com.timetracks.bootstrapping.TimesheetEntryValues;
 import com.timetracks.models.TimesheetEntry;
 
 import android.app.ActionBar.LayoutParams;
@@ -29,7 +29,7 @@ public class CalendarFragment extends Fragment {
         //View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
         
 		List<TimesheetEntry> fakeData = new ArrayList<TimesheetEntry>();
-		fakeData = TimeSheetEntryValues.getEntries();
+		fakeData = TimesheetEntryValues.getEntries();
 		System.out.println(fakeData.get(1).note);
 		
 		String CURRENT_MONTH = "Dec ";
