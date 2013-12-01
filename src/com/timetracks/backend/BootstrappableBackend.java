@@ -3,7 +3,6 @@ package com.timetracks.backend;
 import java.util.List;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.roscopeco.ormdroid.ORMDroidApplication;
 import com.timetracks.bootstrapping.GTTimesheetLinkValues;
