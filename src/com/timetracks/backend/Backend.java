@@ -39,6 +39,14 @@ public class Backend implements BackendInterface {
 			or(and(geq("startDate", startDate), leq("startDate", endDate)),
 			   and(geq("endDate",   startDate), leq("endDate",   endDate)))).executeMulti();
 	}
+	
+	@Override 
+	public List<GTCluster> getGTClusters(Date startDate, Date endDate) {
+		return Entity.query(GTCluster.class).where(
+				or(and(geq("startDate", startDate), leq("startDate", endDate)),
+				   and(geq("endDate",   startDate), leq("endDate",   endDate)))).executeMulti();
+		
+	}
 
 	@Override
 	public List<GTTimesheetLink> getTimesheetsAndGeos(Date startTime,

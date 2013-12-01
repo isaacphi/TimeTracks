@@ -34,6 +34,11 @@ public class StubbedBackend implements BackendInterface {
 	public List<TimesheetEntry> getTimesheetEntries(Date startDate, Date endDate) {
 		return TimesheetEntryValues.getEntries();
 	}
+	
+	@Override
+	public List<GTCluster> getGTClusters(Date startDate, Date endDate) {
+		return GTClusterValues.getClusters();
+	}
 
 	@Override
 	public List<GTCluster> getGTClustersForTimesheetEntries(
