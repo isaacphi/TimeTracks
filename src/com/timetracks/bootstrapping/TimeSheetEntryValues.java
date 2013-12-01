@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.timetracks.models.TimesheetEntry;
 
-public class TimesheetEntryValues {
+public class TimeSheetEntryValues {
 
 	private static Date getDate(String hyphenatedString) {
 		String[] pargs = hyphenatedString.split("-");

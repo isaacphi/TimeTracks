@@ -13,7 +13,7 @@ public class GTTimesheetLinkValues {
 		List<GTTimesheetLink> list = new ArrayList<GTTimesheetLink>();
 		GTTimesheetLink link = new GTTimesheetLink();
 		
-		List<TimesheetEntry> tsList = TimesheetEntryValues.getEntries();
+		List<TimesheetEntry> tsList = TimeSheetEntryValues.getEntries();
 		List<GTCluster> gtcList = GTClusterValues.getClusters();
 	
 		for (int i = 0; i < tsList.size(); i++) {
