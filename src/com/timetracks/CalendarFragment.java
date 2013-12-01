@@ -46,8 +46,8 @@ public class CalendarFragment extends Fragment {
         for (int i=0;i<fakeData.size();i++) {
         	Date start = fakeData.get(i).startDate;
         	Date end = fakeData.get(i).endDate;
-        	Date today = TimesheetEntryValues.getDate(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+i)+"-0-0-0");
-        	Date tomorrow = TimesheetEntryValues.getDate(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+1+i)+"-0-0-0");
+        	Date today = Helpers.dateHelper(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+i)+"-0-0-0");
+        	Date tomorrow = Helpers.dateHelper(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+1+i)+"-0-0-0");
         	if ( (start.getHours()>today.getHours()) && (end.getHours()<tomorrow.getHours()) ) {
         		RectView rv = insertEvent(start.getHours(), start.getHours()-end.getHours(), 1);
         		edit.addView(rv);
