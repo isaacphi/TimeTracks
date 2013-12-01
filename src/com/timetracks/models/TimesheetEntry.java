@@ -10,6 +10,7 @@ public class TimesheetEntry extends Entity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -4371373555974701792L;
+	public static final String TIMESHEET_ENTRY_TAG = "TIMESHEET_ENTRY";
 	
 	public Date startDate;
 	public Date endDate;
