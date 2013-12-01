@@ -8,5 +8,5 @@ public class GTPoint extends Entity {
 	public int id;
 	public double x;
 	public double y;
-	public Date dates;
+	public Date date;
 }

@@ -82,8 +82,8 @@ public class Clusterer {
 					// Radius should be something smart, like stddev/sqrt(N), (or based on measurement error)
 					cluster.radius = max(maximum(xList)-minimum(xList), maximum(yList)-minimum(yList));
 					cluster.userProvided = false;
-					cluster.startDate = pointList.get(i-count).dates;
-					cluster.endDate = pointList.get(i).dates;
+					cluster.startDate = pointList.get(i-count).date;
+					cluster.endDate = pointList.get(i).date;
 					gtcClusterList.add(cluster);
 					newLocation = false;
 					count = 0;
@@ -101,8 +101,8 @@ public class Clusterer {
 					// Radius should be something smart, like stddev/sqrt(N), (or based on measurement error)
 					cluster.radius = max(maximum(xList)-minimum(xList), maximum(yList)-minimum(yList));
 					cluster.userProvided = false;
-					cluster.startDate = pointList.get(i-count).dates;
-					cluster.endDate = pointList.get(i).dates;
+					cluster.startDate = pointList.get(i-count).date;
+					cluster.endDate = pointList.get(i).date;
 					gtcClusterList.add(cluster);
 					newLocation = false;
 					count = 0;
