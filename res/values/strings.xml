@@ -42,5 +42,7 @@
     <string name="time12am">12am</string>
     <string name="updating">Updating</string>
     <string name="title_activity_quick_action_dialog">QuickActionDialogActivity</string>
+    <string name="title_activity_tag_project">TagProjectActivity</string>
+    <string name="title_activity_exclude_location">ExcludeLocationActivity</string>
 
 </resources>
