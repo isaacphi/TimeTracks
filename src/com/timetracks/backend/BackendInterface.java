@@ -20,6 +20,7 @@ import com.timetracks.models.GTTimesheetLink;
  * @author wgeorge
  */
 public interface BackendInterface {
+	public Date getMaxTimesheetEntryDate();
 	public List<Project> getAllProjects();
 	public void createProject(Project project);
 

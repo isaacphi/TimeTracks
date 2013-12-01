@@ -105,4 +105,10 @@ public class Backend implements BackendInterface {
 		
 		return clusterList;
 	}
+
+	@Override
+	public Date getMaxTimesheetEntryDate() {
+		// default to current time
+		return new Date();
+	}
 }

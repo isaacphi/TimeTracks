@@ -1,60 +1,54 @@
 package com.timetracks;
 
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import android.app.ActionBar.LayoutParams;
-import android.app.Notification.Style;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
-import com.timetracks.bootstrapping.TimesheetEntryValues;
+import com.timetracks.backend.BackendInterface;
 import com.timetracks.models.TimesheetEntry;
 
 public class CalendarFragment extends Fragment {
-
+	public BackendInterface backend;
+	
     @SuppressWarnings("deprecation")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
- 
+    	backend = BackendInjector.getBackend();
         View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
-        RelativeLayout edit = (RelativeLayout) rootView.findViewById(R.id.tuesdayRelativeLayout);// mContainerIconExtension in your case
+        final RelativeLayout edit = (RelativeLayout) rootView.findViewById(R.id.tuesdayRelativeLayout);// mContainerIconExtension in your case
         
-		List<TimesheetEntry> fakeData = new ArrayList<TimesheetEntry>();
-		fakeData = TimesheetEntryValues.getEntries();
-		
-		String CURRENT_MONTH = "Nov ";
-        String CURRENT_YEAR = "2013";
-        int START_DATE = 24;
-
-        for (int i=0;i<fakeData.size();i++) {
-        	Date start = fakeData.get(i).startDate;
-        	Date end = fakeData.get(i).endDate;
-        	Date today = Helpers.dateHelper(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+i)+"-0-0-0");
-        	Date tomorrow = Helpers.dateHelper(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+1+i)+"-0-0-0");
-        	if ( (start.getHours()>today.getHours()) && (end.getHours()<tomorrow.getHours()) ) {
-        		RectView rv = insertEvent(start.getHours(), start.getHours()-end.getHours(), 1);
-        		edit.addView(rv);
+        ViewWindow.calculateDates();
+        class GetTimesheetEntries extends AsyncTask<Date, Void, Void> {
+        	public List<TimesheetEntry> entriesList;
+        	@Override
+        	protected Void doInBackground(Date... dates) {
+        		entriesList = backend.getTimesheetEntries(dates[0], dates[1]);
+        		return null;
         	}
+        	@Override
+        	protected void onPostExecute(Void voids) {
+        		for(TimesheetEntry entry: entriesList) {
+        			if(!entry.spansMultipleDays()) {
+        				int height = entry.endDate.getHours() - entry.startDate.getHours();
+                		RectView rv = insertEvent(entry.startDate.getHours(), height, 1);
+                		edit.addView(rv);
+        			}
+        		}
+        	}   	
         }
-        
-        
+        new GetTimesheetEntries().execute(ViewWindow.startDate, ViewWindow.endDate);
+       
         return rootView;
     }
 	
