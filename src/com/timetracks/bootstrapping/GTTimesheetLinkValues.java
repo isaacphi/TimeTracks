@@ -11,12 +11,12 @@ public class GTTimesheetLinkValues {
 	
 	public List<GTTimesheetLink> getGTTimesheetLinkValues() {
 		List<GTTimesheetLink> list = new ArrayList<GTTimesheetLink>();
-		GTTimesheetLink link = new GTTimesheetLink();
 		
 		List<TimesheetEntry> tsList = TimesheetEntryValues.getEntries();
 		List<GTCluster> gtcList = GTClusterValues.getClusters();
 	
 		for (int i = 0; i < tsList.size(); i++) {
+			GTTimesheetLink link = new GTTimesheetLink();
 			link.timesheetEntry = tsList.get(i);
 			link.gtCluster = gtcList.get(i);
 			link.taggedByUser = false;
