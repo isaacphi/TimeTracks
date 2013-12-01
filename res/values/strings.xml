@@ -9,23 +9,21 @@
     <string name="title_activity_calendar_fragment">CalendarFragment</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_map_fragment">MapFragment</string>
-
     <string name="sun">Sun</string>
-	<string name="mon">Mon</string>
-	<string name="tue">Tue</string>
-	<string name="wed">Wed</string>
-	<string name="thu">Thu</string>
-	<string name="fri">Fri</string>
-	<string name="sat">Sat</string>
-	
-	<string name="time1am">1am</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="time1am">1am</string>
     <string name="time2am">2am</string>
-	<string name="time3am">3am</string>
+    <string name="time3am">3am</string>
     <string name="time4am">4am</string>
     <string name="time5am">5am</string>
     <string name="time6am">6am</string>
-	<string name="time7am">7am</string>
-	<string name="time8am">8am</string>
+    <string name="time7am">7am</string>
+    <string name="time8am">8am</string>
     <string name="time9am">9am</string>
     <string name="time10am">10am</string>
     <string name="time11am">11am</string>
@@ -42,7 +40,7 @@
     <string name="time10pm">10pm</string>
     <string name="time11pm">11pm</string>
     <string name="time12am">12am</string>
-    
     <string name="updating">Updating</string>
-        
+    <string name="title_activity_quick_action_dialog">QuickActionDialogActivity</string>
+
 </resources>
