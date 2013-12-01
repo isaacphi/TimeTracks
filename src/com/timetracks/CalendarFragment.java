@@ -41,7 +41,7 @@ public class CalendarFragment extends Fragment {
         	@Override
         	protected List<TimesheetEntry> doInBackground(Void...voids) {
         		BackendInterface backend = BackendInjector.getBackend();
-        		ViewWindow.calculateDates();
+        		ViewWindow.calculateDates(backend.getMaxTimesheetEntryDate());
         		return backend.getTimesheetEntries(ViewWindow.startDate, ViewWindow.endDate);
         	}
         	@Override

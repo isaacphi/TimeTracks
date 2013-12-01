@@ -38,12 +38,8 @@ public class GoogleMapFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-
-		ViewWindow.calculateDates();
-		Date startDate = ViewWindow.startDate;
-		Date endDate = ViewWindow.endDate;
         // Set the asynchronous tasks going
-        new PopulateMapTask().execute(startDate, endDate);
+        new PopulateMapTask().execute();
 		
         View rootView = inflater.inflate(R.layout.activity_map_fragment, container, false);
         try {
@@ -142,19 +138,17 @@ public class GoogleMapFragment extends Fragment {
 	 * @author Ivan
 	 *
 	 */
-	private class PopulateMapTask extends AsyncTask<Date, Void, List<LatLng>>	{
-
-
+	private class PopulateMapTask extends AsyncTask<Void, Void, List<LatLng>> {
 		float[] colours = {BitmapDescriptorFactory.HUE_BLUE, BitmapDescriptorFactory.HUE_RED, BitmapDescriptorFactory.HUE_YELLOW, BitmapDescriptorFactory.HUE_GREEN, BitmapDescriptorFactory.HUE_ORANGE, BitmapDescriptorFactory.HUE_AZURE};
 		
-		/**
-		 * This task will always have two parameters: start date and end date
-		 */
 		@Override
-		protected List<LatLng> doInBackground(Date... params) {
+		protected List<LatLng> doInBackground(Void...voids) {
 			BackendInterface dao = BackendInjector.getBackend();
+			ViewWindow.calculateDates(dao.getMaxTimesheetEntryDate());
+			Date startDate = ViewWindow.startDate;
+			Date endDate = ViewWindow.endDate;
 
-			List<GTCluster> clusters = dao.getGTClusters(params[0], params[1]);
+			List<GTCluster> clusters = dao.getGTClusters(startDate, endDate	);
 
 			// Now populate the data, and prep data to be sent to the fragments
 			// For maps, we want c_x, c_y to reverse geocode, and display the dialog
@@ -180,7 +174,6 @@ public class GoogleMapFragment extends Fragment {
 			}
 			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(result.get(0), 12));
 		}
-		
 	}
 }
 
