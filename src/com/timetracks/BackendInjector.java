@@ -1,10 +1,10 @@
 package com.timetracks;
 
 import com.timetracks.backend.BackendInterface;
-import com.timetracks.backend.BootstrappedBackend;
+import com.timetracks.backend.StubbedBackend;
 
 public class BackendInjector {
 	public static BackendInterface getBackend() {
-		return BootstrappedBackend.getInstance();
+		return new StubbedBackend();
 	}
 }
