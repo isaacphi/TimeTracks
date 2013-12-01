@@ -183,15 +183,19 @@ public class CalendarFragment extends Fragment {
                         @Override
                         public void onItemClick(QuickAction quickAction, int pos, int actionId) {
                                 ActionItem actionItem = quickAction.getActionItem(pos);
-                                
-                                if (actionId == ID_VIEW_OTHER_FRAGMENT) {
-                                        // Start Activity of view Other Fragment
-                                        
-                                } else if (actionId == ID_TAG) {
-                                        // Select Activity of Tagging or Retagging
-                                } else {
-                                        // Start Activity of Exclude
-                                }
+                				if (actionId == ID_VIEW_OTHER_FRAGMENT) {
+                					// Instead of sending Intent and activity here, use interface to wire over
+                					mMapListener.onMapSelected(null); // TODO: get Project here.
+                					
+                					
+                				} else if (actionId == ID_TAG) {
+                					Intent i2 = new Intent(getActivity(), TagProjectActivity.class);
+                					startActivity(i2);
+                				} else {
+                					// Start Activity of Exclude
+                					Intent i3 = new Intent(getActivity(), ExcludeLocationActivity.class);
+                					startActivity(i3);
+                				}
                         }
                 });
                 
