@@ -46,5 +46,8 @@
     <string name="title_activity_exclude_location">ExcludeLocationActivity</string>
     <string name="action_share">Export</string>
     <string name="action_legend">Legend</string>
+    <string name="always_exclude">Remember exclusion</string>
+    <string name="okay">OK</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

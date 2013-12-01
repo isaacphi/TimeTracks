@@ -28,6 +28,8 @@ import com.timetracks.models.GTCluster;
 import com.timetracks.models.Project;
 
 public class GoogleMapFragment extends Fragment {
+	
+	public final static String TAG = "from_map";
 
 	private GoogleMap googleMap;
 	static final LatLng TORONTO = new LatLng(43.670852, -79.376435);
@@ -129,7 +131,7 @@ public class GoogleMapFragment extends Fragment {
 					startActivity(i2);
 				} else {
 					Intent i3 = new Intent(getActivity(), ExcludeLocationActivity.class);
-					startActivity(i3);
+					
 				}
 			}
 		});

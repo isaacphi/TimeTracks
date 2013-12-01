@@ -93,6 +93,7 @@ public class TimeSheetActivity extends FragmentActivity implements
             case R.id.action_share:
                 return true;
             case R.id.action_legend:
+            	//stuff
             	return true;
             case R.id.action_settings:
                 return true;

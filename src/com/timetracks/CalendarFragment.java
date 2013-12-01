@@ -25,6 +25,10 @@ import com.timetracks.models.Project;
 import com.timetracks.models.TimesheetEntry;
 
 public class CalendarFragment extends Fragment {
+		
+		public final static String TAG = "from_calendar";
+
+	
         private static final int ID_VIEW_OTHER_FRAGMENT = 1;
         private static final int ID_TAG = 2;
         private static final int ID_EXCLUDE = 3;
@@ -109,7 +113,7 @@ public class CalendarFragment extends Fragment {
                                 rv.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                        QuickAction quickAction = setQuickActionButtons();
+                                                        QuickAction quickAction = setQuickActionButtons(v);
                                                         quickAction.show(v);
                                                 }
                                         });
@@ -159,7 +163,7 @@ public class CalendarFragment extends Fragment {
         return rv;
         }
         
-        public QuickAction setQuickActionButtons()        {
+        public QuickAction setQuickActionButtons(View v)        {
                 
                 Intent intent = getActivity().getIntent();
                 
@@ -186,14 +190,15 @@ public class CalendarFragment extends Fragment {
                 				if (actionId == ID_VIEW_OTHER_FRAGMENT) {
                 					// Instead of sending Intent and activity here, use interface to wire over
                 					mMapListener.onMapSelected(null); // TODO: get Project here.
-                					
-                					
+                				
+                				
                 				} else if (actionId == ID_TAG) {
                 					Intent i2 = new Intent(getActivity(), TagProjectActivity.class);
                 					startActivity(i2);
                 				} else {
                 					// Start Activity of Exclude
                 					Intent i3 = new Intent(getActivity(), ExcludeLocationActivity.class);
+                					
                 					startActivity(i3);
                 				}
                         }
