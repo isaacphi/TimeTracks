@@ -1,6 +1,8 @@
 package com.timetracks;
 
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.ActionBar.LayoutParams;
@@ -27,148 +29,59 @@ import com.timetracks.models.TimesheetEntry;
 
 public class CalendarFragment extends Fragment {
 
-	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    @SuppressWarnings("deprecation")
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-		//Original:
-        //View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
+        RelativeLayout edit = (RelativeLayout) rootView.findViewById(R.id.tuesdayRelativeLayout);// mContainerIconExtension in your case
         
 		List<TimesheetEntry> fakeData = new ArrayList<TimesheetEntry>();
 		fakeData = TimesheetEntryValues.getEntries();
 		
 		String CURRENT_MONTH = "Nov ";
         String CURRENT_YEAR = "2013";
-        int START_DATE = 10;
-        
-        // Overall vertical layout
-        LinearLayout my_root = new LinearLayout(getActivity());
-        my_root.setOrientation(LinearLayout.VERTICAL);
-        
-        // Layout Parameters 
-        LinearLayout.LayoutParams horizParams = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        horizParams.weight = 1.0f;
-        horizParams.width = 50;
-        horizParams.gravity=Gravity.RIGHT;
-        horizParams.width=100;
-        
-        RelativeLayout.LayoutParams vertParams = new RelativeLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        vertParams.height=100;
-                 
-        // Horizontal layout which says month and year
-        LinearLayout monthYear = new LinearLayout(getActivity());
-        monthYear.setOrientation(LinearLayout.HORIZONTAL);
-        
-        TextView t1 = new TextView(getActivity());
-        t1.setText(CURRENT_MONTH);
-        t1.setTextSize(30);
-        t1.setTextColor(getResources().getColor(R.color.cleargray));
-        monthYear.addView(t1);
-        TextView t2 = new TextView(getActivity());
-        t2.setText(CURRENT_YEAR);
-        t2.setTextSize(30);
-        t2.setTextColor(getResources().getColor(R.color.Gray));
-        monthYear.addView(t2);
-        
-        my_root.addView(monthYear);
-        
-        // Horizontal layout which lists the days
-        LinearLayout days = new LinearLayout(getActivity());
-        days.setOrientation(LinearLayout.HORIZONTAL);
-               
-        TextView t3 = new TextView(getActivity());
-        t3.setText("");
-        t3.setLayoutParams(horizParams);
-        days.addView(t3);
-        //List<TextView> daysArray = new ArrayList<TextView>();
-        int i = 0;
-        for (String st : new String[]{"Sun","Mon","Tue","Wed","Thu","Fri","Sat"}) {
-        	TextView tv = new TextView(getActivity());
-        	tv.setLayoutParams(horizParams);
-        	tv.setTextColor(getResources().getColor(R.color.Gray));
-        	tv.setTextSize(14);
-        	tv.setText(st+" "+String.valueOf(START_DATE+i));
-        	i++;
-        	days.addView(tv);
-        }
-        my_root.addView(days);
-        
-        // Scroll View
-        ScrollView scroll = new ScrollView(getActivity());
-        // One for each day (first column is list of times)
-        LinearLayout horizontalLayout = new LinearLayout(getActivity());
-        horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
-        
-        // List of times
-        LinearLayout timeLayout = new LinearLayout(getActivity());
-        timeLayout.setOrientation(LinearLayout.VERTICAL);
+        int START_DATE = 24;
 
-        //List<TextView> textArray = new ArrayList<TextView>();
-        for (i=0;i<24;i++) {
-        	TextView tv = new TextView(getActivity());
-        	tv.setTextColor(getResources().getColor(R.color.cleargray));
-        	tv.setLayoutParams(vertParams);
-        	if (i<12) {
-        		tv.setText(String.valueOf(i+1)+" am");
-        	} else {
-        		tv.setText(String.valueOf(i-11)+" pm");
-        	}   	
-        	timeLayout.addView(tv);
-        }
-        
-        horizontalLayout.addView(timeLayout);
-        
-        // Each day of the week (vertical layouts)
-        //List<LinearLayout> columns = new ArrayList<LinearLayout>();
-        for (i=0;i<7;i++) {
-        	LinearLayout ll = new LinearLayout(getActivity());
-        	ll.setOrientation(LinearLayout.VERTICAL);
-        	
-        	//TextView tv = new TextView(getActivity());
-        	//tv.setText("test");
-        	//ll.addView(tv);
-        	
-        	RectView rv = new RectView(getActivity(), 50,100,50,100);
-        	rv.setLayoutParams(vertParams);
-        	
-        	ll.addView(rv);
-        	
-        	horizontalLayout.addView(ll);
-        	//horizontalLayout.addView(rv);
+        for (int i=0;i<fakeData.size();i++) {
+        	Date start = fakeData.get(i).startDate;
+        	Date end = fakeData.get(i).endDate;
+        	Date today = TimesheetEntryValues.getDate(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+i)+"-0-0-0");
+        	Date tomorrow = TimesheetEntryValues.getDate(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+1+i)+"-0-0-0");
+        	if ( (start.getHours()>today.getHours()) && (end.getHours()<tomorrow.getHours()) ) {
+        		RectView rv = insertEvent(start.getHours(), start.getHours()-end.getHours(), 1);
+        		edit.addView(rv);
+        	}
         }
         
         
-        scroll.addView(horizontalLayout);
-        my_root.addView(scroll);
-        
-        // RECTANGLE CONSTRUCTION
-        RectView rv = new RectView(getActivity(), 0, 100, 0, 100);
-        rv.setLayoutParams(vertParams);
-        //timeLayout.addView(rv);
-        
-        return my_root;
+        return rootView;
     }
 	
 	private class RectView extends View{
-	    int leftX, rightX, topY, bottomY;
+		int [] colors = {getResources().getColor(R.color.blue), getResources().getColor(R.color.red),
+				getResources().getColor(R.color.yellow), getResources().getColor(R.color.green),
+				getResources().getColor(R.color.Orange), getResources().getColor(R.color.Azure)};
+	    int leftX, rightX, topY, bottomY, yOffset, color;
 	    private Paint rectPaint;
 	    private Rect rectangle;
-	    public RectView(Context context, int _leftX, int _rightX, int _topY, int _bottomY){
+	    public RectView(Context context, int _leftX, int _rightX, int _topY,
+	    				int _bottomY, int _yOffset, int _color){
 	        super(context);
 	        leftX = _leftX;
 	        rightX = _rightX;
 	        topY = _topY;
 	        bottomY = _bottomY;
+	        yOffset = _yOffset;
+	        color = _color;
 	        init();
 	    }
 	    private void init(){
 	    	rectPaint = new Paint();
 	        rectPaint.setARGB(255, 0, 0, 0);
-	        rectPaint.setColor(getResources().getColor(R.color.Gray));
+	        rectPaint.setColor(colors[color]);
 	        rectPaint.setStrokeWidth(2);
-	        rectangle = new Rect(leftX, topY, rightX, bottomY);
+	        rectangle = new Rect(leftX, topY+yOffset, rightX, bottomY+yOffset);
 	    }
 	    protected void onDraw(Canvas canvas){
 	        super.onDraw(canvas);
@@ -176,8 +89,9 @@ public class CalendarFragment extends Fragment {
 	    }
 	}
 	
-	void insertEvent(List<TimesheetEntry> data) {
-
+	RectView insertEvent(float time, float length, int color) {
+        RectView rv = new RectView(getActivity(), 0, 100, 0,(int) length*120,(int) time*120, color);
+        return rv;
 	}
 	
 }
