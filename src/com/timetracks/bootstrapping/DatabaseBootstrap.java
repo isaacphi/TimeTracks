@@ -3,14 +3,16 @@ package com.timetracks.bootstrapping;
 import java.util.List;
 
 import com.timetracks.models.GTCluster;
+import com.timetracks.bootstrapping.GTClusterValues;
 
 public class DatabaseBootstrap {
-	private static final String GTCLUSTER_FILENAME="";
-	public static void BootstrapDatabase() {
-		List<GTCluster> = GTClusterXMLLoader.loadFromFile(GTCLUSTER_FILENAME);
-		// and more 
+
+	public static void BootstrapDatabase() { 
+		
+		List<GTCluster> gtcList = GTClusterValues.getClusters();
+		
+		// Take each element and put it into database
 		
 		
-		// put in database
 	}
 }

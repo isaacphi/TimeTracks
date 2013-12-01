@@ -9,13 +9,13 @@ import com.timetracks.models.GTCluster;
 
 public class GTClusterValues {
 
-	private Date getDate(String hyphenatedString) {
+	private static Date getDate(String hyphenatedString) {
 		String[] pargs = hyphenatedString.split("-");
 		GregorianCalendar gc = new GregorianCalendar(Integer.parseInt(pargs[0]), Integer.parseInt(pargs[1]), Integer.parseInt(pargs[2]), Integer.parseInt(pargs[3]), Integer.parseInt(pargs[4]), Integer.parseInt(pargs[5]));
 		return gc.getTime();
 	}
 	
-	public List<GTCluster> getClusters() {
+	public static List<GTCluster> getClusters() {
 		List<GTCluster> list = new ArrayList<GTCluster>();
 		GTCluster cluster = new GTCluster();
 		
