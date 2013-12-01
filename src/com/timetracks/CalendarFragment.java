@@ -25,7 +25,7 @@ public class CalendarFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
     	backend = BackendInjector.getBackend();
-        View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
         final RelativeLayout edit = (RelativeLayout) rootView.findViewById(R.id.tuesdayRelativeLayout);// mContainerIconExtension in your case
         
         ViewWindow.calculateDates();
@@ -40,7 +40,7 @@ public class CalendarFragment extends Fragment {
         	}
         	@Override
         	protected void onPostExecute(List<TimesheetEntry> entriesList) {
-        		this.container.renderTimesheetEntries(entriesList);
+        		this.container.renderTimesheetEntries(rootView, entriesList);
         	}   	
         }
         new GetTimesheetEntries(this).execute(ViewWindow.startDate, ViewWindow.endDate);
@@ -48,7 +48,7 @@ public class CalendarFragment extends Fragment {
         return rootView;
     }
     
-    protected void renderTimesheetEntries(List<TimesheetEntry> timesheetEntryList) {
+    void renderTimesheetEntries(View rootView, List<TimesheetEntry> timesheetEntryList) {
     	
     }
 	
