@@ -74,7 +74,7 @@ public class Backend implements BackendInterface {
 
 	@Override
 	public void deleteTimesheetEntry(TimesheetEntry entry) {
-		GTTimesheetLink link = GTTimesheetLink.getLinkforTimesheetEntry(entry);
+		GTTimesheetLink link = GTTimesheetLink.getForTimesheetEntry(entry);
 		if(link!=null) {
 			link.isExcluded=true;
 			link.excludedSetByUser=true;
@@ -95,7 +95,7 @@ public class Backend implements BackendInterface {
 			List<TimesheetEntry> entryList) {
 		List<GTCluster> clusterList = new ArrayList<GTCluster>();
 		for(TimesheetEntry entry : entryList) {
-			GTTimesheetLink link = GTTimesheetLink.getLinkforTimesheetEntry(entry);
+			GTTimesheetLink link = GTTimesheetLink.getForTimesheetEntry(entry);
 			if(link == null) {
 				clusterList.add(null);
 			} else {

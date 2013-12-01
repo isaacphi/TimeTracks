@@ -8,6 +8,7 @@ import java.util.List;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.ApplicationTestCase;
 
+import com.roscopeco.ormdroid.Entity;
 import com.roscopeco.ormdroid.ORMDroidApplication;
 import com.timetracks.backend.Backend;
 import com.timetracks.models.GTCluster;
@@ -110,5 +111,32 @@ public class BackendTest extends ApplicationTestCase<ORMDroidApplication>{
 												dateHelper("2013-12-01-9-15-00"),
 												dateHelper("2013-12-01-11-30-00"));
 		assertEquals(3, entryList.size());		
+	} 
+	
+	public void testAnnotatingTimesheetEntry() {
+		TimesheetEntry entry = new TimesheetEntry();
+		entry.save();
+		int entry_id = entry.id;
+		GTTimesheetLink link = new GTTimesheetLink();
+		link.timesheetEntry = entry;
+		link.save();
+		assertFalse(link.noteSetByUser);
+		assertFalse(link.excludedSetByUser);
+		assertFalse(link.projectSetByUser);
+		assertFalse(link.taggedByUser);
+		
+		final String note = "I'm a note!";
+		backend.setNoteToTimesheetEntry(entry, note);
+		
+		/* refresh the entry with latest db state */
+		entry = TimesheetEntry.getById(entry_id);
+		assertEquals(note, entry.note);
+		
+		link = GTTimesheetLink.getForTimesheetEntry(entry);
+		
+		assertTrue(link.noteSetByUser);
+		assertFalse(link.excludedSetByUser);
+		assertFalse(link.projectSetByUser);
+		assertFalse(link.taggedByUser);
 	}
 }

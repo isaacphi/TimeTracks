@@ -18,7 +18,7 @@ public class GTTimesheetLink extends Entity {
 	public boolean projectSetByUser=false;
 	public boolean noteSetByUser=false;
 	
-	public static GTTimesheetLink getLinkforTimesheetEntry(TimesheetEntry entry) {
+	public static GTTimesheetLink getForTimesheetEntry(TimesheetEntry entry) {
 		return Entity.query(GTTimesheetLink.class).where(eql("timesheetEntry", entry)).execute();
 	}
 }
