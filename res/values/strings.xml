@@ -44,5 +44,7 @@
     <string name="title_activity_quick_action_dialog">QuickActionDialogActivity</string>
     <string name="title_activity_tag_project">TagProjectActivity</string>
     <string name="title_activity_exclude_location">ExcludeLocationActivity</string>
+    <string name="action_share">Export</string>
+    <string name="action_legend">Legend</string>
 
 </resources>
