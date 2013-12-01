@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.londatiga.android.ActionItem;
 import net.londatiga.android.QuickAction;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.timetracks.backend.BackendInterface;
 import com.timetracks.models.GTCluster;
-import com.timetracks.models.GTTimesheetLink;
+import com.timetracks.models.Project;
 
 public class GoogleMapFragment extends Fragment {
 
@@ -34,6 +35,8 @@ public class GoogleMapFragment extends Fragment {
 	private static final int ID_TAG = 2;
 	private static final int ID_EXCLUDE = 3;
 	
+	OnCalendarSelectedListener mCalendarListener;
+
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +71,18 @@ public class GoogleMapFragment extends Fragment {
 					R.id.map)).getMap(); 
 		}
 
+	}
+
+	
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+        try {
+            mCalendarListener = (OnCalendarSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnCalendarSelectedListener");
+        }
 	}
 
 	@Override
@@ -106,10 +121,8 @@ public class GoogleMapFragment extends Fragment {
 				ActionItem actionItem = quickAction.getActionItem(pos);
 				
 				if (actionId == ID_VIEW_OTHER_FRAGMENT) {
-					Intent i1 = new Intent(getActivity(), getActivity().getClassLoader().getClass());
-					// Add filter of how legend is going to be
-					i1.putExtra("CALENDAR_FILTER", "");
-					startActivity(i1);
+					// Instead of sending Intent and activity here, use interface to wire over
+					mCalendarListener.onCalendarSelected(null); // TODO: get Project here.
 					
 				} else if (actionId == ID_TAG) {
 					Intent i2 = new Intent(getActivity(), TagProjectActivity.class);
@@ -175,5 +188,9 @@ public class GoogleMapFragment extends Fragment {
 			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(result.get(0), 12));
 		}
 	}
+	
+	public interface OnCalendarSelectedListener {
+        public void onCalendarSelected(Project project);
+    }
 }
 

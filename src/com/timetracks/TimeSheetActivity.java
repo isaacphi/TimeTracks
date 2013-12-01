@@ -1,14 +1,7 @@
 package com.timetracks;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,14 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.timetracks.backend.Backend;
-import com.timetracks.backend.BackendInterface;
-import com.timetracks.models.GTCluster;
-import com.timetracks.models.TimesheetEntry;
+import com.timetracks.models.Project;
 
 public class TimeSheetActivity extends FragmentActivity implements
-		ActionBar.TabListener {
+		ActionBar.TabListener, GoogleMapFragment.OnCalendarSelectedListener,CalendarFragment.OnMapSelectedListener {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -159,6 +150,16 @@ public class TimeSheetActivity extends FragmentActivity implements
 					ARG_SECTION_NUMBER)));
 			return rootView;
 		}
+	}
+
+	@Override
+	public void onCalendarSelected(Project project) {
+		viewPager.setCurrentItem(0);
+	}
+
+	@Override
+	public void onMapSelected(Project project) {
+		viewPager.setCurrentItem(1);
 	}
 	
 
