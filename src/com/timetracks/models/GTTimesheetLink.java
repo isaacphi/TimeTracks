@@ -1,6 +1,8 @@
 package com.timetracks.models;
 
 import com.roscopeco.ormdroid.Entity;
+import static com.roscopeco.ormdroid.Query.eql;
+
 
 // Output by the tagging algorithm.
 // Annotates which attributes were suggested by the backend, and
@@ -15,4 +17,8 @@ public class GTTimesheetLink extends Entity {
 	public boolean excludedSetByUser;
 	public boolean projectSetByUser;
 	public boolean noteSetByUser;
+	
+	public static GTTimesheetLink getLinkforTimesheetEntry(TimesheetEntry entry) {
+		return Entity.query(GTTimesheetLink.class).where(eql("timesheetEntry", entry)).execute();
+	}
 }
