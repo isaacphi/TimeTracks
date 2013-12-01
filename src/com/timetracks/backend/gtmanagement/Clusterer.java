@@ -86,10 +86,10 @@ public class Clusterer {
 					cluster.endDate = pointList.get(i).dates;
 					gtcClusterList.add(cluster);
 					newLocation = false;
-					count = 0;
 					xList.clear();
 					yList.clear();
 				}
+				count = 0;
 			}
 			// Catch the EOF
 			if (i == pointList.size()-2) {

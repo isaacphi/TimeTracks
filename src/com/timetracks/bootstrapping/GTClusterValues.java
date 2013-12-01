@@ -20,6 +20,7 @@ public class GTClusterValues {
 		GTCluster cluster = new GTCluster();
 		
 		// Monday
+		cluster = new GTCluster();
 		cluster.id = 1;
 		cluster.startDate = getDate("2013-11-25-1-0-0");
 		cluster.endDate = getDate("2013-11-25-9-0-0");
@@ -30,6 +31,7 @@ public class GTClusterValues {
 		//cluster.project = new Project()
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 2;
 		cluster.startDate = getDate("2013-11-25-9-0-0");
 		cluster.endDate = getDate("2013-11-25-17-0-0");
@@ -39,6 +41,7 @@ public class GTClusterValues {
 		cluster.userProvided = false; 
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 3;
 		cluster.startDate = getDate("2013-11-25-17-0-0");
 		cluster.endDate = getDate("2013-11-25-23-0-0");
@@ -49,6 +52,7 @@ public class GTClusterValues {
 		list.add(cluster);
 		
 		// Tuesday
+		cluster = new GTCluster();
 		cluster.id = 4;
 		cluster.startDate = getDate("2013-11-26-1-0-0");
 		cluster.endDate = getDate("2013-11-26-9-0-0");
@@ -58,6 +62,7 @@ public class GTClusterValues {
 		cluster.userProvided = false;
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 5;
 		cluster.startDate = getDate("2013-11-26-9-0-0");
 		cluster.endDate = getDate("2013-11-26-12-30-0");
@@ -67,6 +72,7 @@ public class GTClusterValues {
 		cluster.userProvided = false; 
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 6;
 		cluster.startDate = getDate("2013-11-26-12-30-0");
 		cluster.endDate = getDate("2013-11-26-13-30-0");
@@ -76,6 +82,7 @@ public class GTClusterValues {
 		cluster.userProvided = false;
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 7;
 		cluster.startDate = getDate("2013-11-26-13-30-0");
 		cluster.endDate = getDate("2013-11-26-18-0-0");
@@ -85,6 +92,7 @@ public class GTClusterValues {
 		cluster.userProvided = false; 
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 8;
 		cluster.startDate = getDate("2013-11-26-18-0-0");
 		cluster.endDate = getDate("2013-11-26-23-30-0");
@@ -95,6 +103,7 @@ public class GTClusterValues {
 		list.add(cluster);
 		
 		//Wednesday
+		cluster = new GTCluster();
 		cluster.id = 9;
 		cluster.startDate = getDate("2013-11-27-1-0-0");
 		cluster.endDate = getDate("2013-11-27-9-0-0");
@@ -104,6 +113,7 @@ public class GTClusterValues {
 		cluster.userProvided = false;
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 10;
 		cluster.startDate = getDate("2013-11-27-9-0-0");
 		cluster.endDate = getDate("2013-11-27-17-0-0");
@@ -113,6 +123,7 @@ public class GTClusterValues {
 		cluster.userProvided = false; 
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 11;
 		cluster.startDate = getDate("2013-11-27-17-0-0");
 		cluster.endDate = getDate("2013-11-27-23-0-0");
@@ -124,6 +135,7 @@ public class GTClusterValues {
 		
 		
 		//Thursday
+		cluster = new GTCluster();
 		cluster.id = 12;
 		cluster.startDate = getDate("2013-11-28-1-0-0");
 		cluster.endDate = getDate("2013-11-28-9-3-0");
@@ -133,6 +145,7 @@ public class GTClusterValues {
 		cluster.userProvided = false;
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 13;
 		cluster.startDate = getDate("2013-11-28-9-3-0");
 		cluster.endDate = getDate("2013-11-28-18-0-0");
@@ -142,6 +155,7 @@ public class GTClusterValues {
 		cluster.userProvided = false; 
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 14;
 		cluster.startDate = getDate("2013-11-28-17-0-0");
 		cluster.endDate = getDate("2013-11-28-23-0-0");
@@ -152,6 +166,7 @@ public class GTClusterValues {
 		list.add(cluster);
 		
 		//Friday
+		cluster = new GTCluster();
 		cluster.id = 15;
 		cluster.startDate = getDate("2013-11-29-1-0-0");
 		cluster.endDate = getDate("2013-11-29-9-0-0");
@@ -161,6 +176,7 @@ public class GTClusterValues {
 		cluster.userProvided = false;
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 16;
 		cluster.startDate = getDate("2013-11-29-9-0-0");
 		cluster.endDate = getDate("2013-11-29-12-0-0");
@@ -170,6 +186,7 @@ public class GTClusterValues {
 		cluster.userProvided = false;
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 17;
 		cluster.startDate = getDate("2013-11-29-12-0-0");
 		cluster.endDate = getDate("2013-11-29-18-0-0");
@@ -179,6 +196,7 @@ public class GTClusterValues {
 		cluster.userProvided = false; 
 		list.add(cluster);
 		
+		cluster = new GTCluster();
 		cluster.id = 18;
 		cluster.startDate = getDate("2013-11-29-18-0-0");
 		cluster.endDate = getDate("2013-11-29-23-0-0");
