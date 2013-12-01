@@ -39,8 +39,9 @@ public class GoogleMapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-		Date startDate = new Date();
-		Date endDate = new Date();
+		ViewWindow.calculateDates();
+		Date startDate = ViewWindow.startDate;
+		Date endDate = ViewWindow.endDate;
         // Set the asynchronous tasks going
         new PopulateMapTask().execute(startDate, endDate);
 		
