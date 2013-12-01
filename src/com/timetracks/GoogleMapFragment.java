@@ -1,6 +1,5 @@
 package com.timetracks;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,10 +22,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.timetracks.backend.Backend;
 import com.timetracks.backend.BackendInterface;
-import com.timetracks.bootstrapping.GTClusterValues;
 import com.timetracks.models.GTCluster;
+import com.timetracks.models.GTTimesheetLink;
 
 public class GoogleMapFragment extends Fragment {
 
@@ -41,8 +39,9 @@ public class GoogleMapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-		Date startDate = new Date();
-		Date endDate = new Date();
+		ViewWindow.calculateDates();
+		Date startDate = ViewWindow.startDate;
+		Date endDate = ViewWindow.endDate;
         // Set the asynchronous tasks going
         new PopulateMapTask().execute(startDate, endDate);
 		
@@ -153,9 +152,10 @@ public class GoogleMapFragment extends Fragment {
 		 */
 		@Override
 		protected List<LatLng> doInBackground(Date... params) {
-			BackendInterface dao = new Backend();
-			//List<TimesheetEntry> entries = dao.getTimesheetEntries(params[0], params[1]);
-			List<GTCluster> clusters = GTClusterValues.getClusters();//dao.getGTClustersForTimesheetEntries(entries);
+			BackendInterface dao = BackendInjector.getBackend();
+
+			List<GTCluster> clusters = dao.getGTClusters(params[0], params[1]);
+
 			// Now populate the data, and prep data to be sent to the fragments
 			// For maps, we want c_x, c_y to reverse geocode, and display the dialog
 			// How do we account for 

@@ -1,6 +1,6 @@
 package com.timetracks;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,36 +11,55 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.timetracks.bootstrapping.TimesheetEntryValues;
+import com.timetracks.backend.BackendInterface;
 import com.timetracks.models.TimesheetEntry;
 
 public class CalendarFragment extends Fragment {
 	private static final int ID_VIEW_OTHER_FRAGMENT = 1;
 	private static final int ID_TAG = 2;
 	private static final int ID_EXCLUDE = 3;
-
+    
+	public BackendInterface backend;
+	
     @SuppressWarnings("deprecation")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
- 
-        View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
-        RelativeLayout edit = null;
+    	backend = BackendInjector.getBackend();
+        final View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
+        final RelativeLayout edit = (RelativeLayout) rootView.findViewById(R.id.tuesdayRelativeLayout);// mContainerIconExtension in your case
         
-		List<TimesheetEntry> fakeData = new ArrayList<TimesheetEntry>();
-		fakeData = TimesheetEntryValues.getEntries();
-		
-		String CURRENT_MONTH = "Nov ";
-        String CURRENT_YEAR = "2013";
-<<<<<<< HEAD
-        int START_DATE;
-        int END_DATE;
+        ViewWindow.calculateDates();
+        class GetTimesheetEntries extends AsyncTask<Date, Void, List<TimesheetEntry>> {
+        	CalendarFragment container;
+        	public GetTimesheetEntries(CalendarFragment container) {
+        		this.container=container;
+        	}
+        	@Override
+        	protected List<TimesheetEntry> doInBackground(Date... dates) {
+        		return backend.getTimesheetEntries(dates[0], dates[1]);
+        	}
+        	@Override
+        	protected void onPostExecute(List<TimesheetEntry> entriesList) {
+        		this.container.renderTimesheetEntries(rootView, entriesList);
+        	}   	
+
+        }
+        new GetTimesheetEntries(this).execute(ViewWindow.startDate, ViewWindow.endDate);
+       
+        return rootView;
+    }
+	
+    View renderTimesheetEntries(View rootView, List<TimesheetEntry> fakeData) {		
+    	RelativeLayout edit = null;
         int color = 0;
         
         for (int j=0;j<7;j++){
@@ -59,27 +78,10 @@ public class CalendarFragment extends Fragment {
         		break;
         	case 6: edit = (RelativeLayout) rootView.findViewById(R.id.saturdayRelativeLayout);
         		break;
-=======
-        int START_DATE = 24;
-
-        for (int i=0;i<fakeData.size();i++) {
-        	Date start = fakeData.get(i).startDate;
-        	Date end = fakeData.get(i).endDate;
-        	Date today = Helpers.dateHelper(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+i)+"-0-0-0");
-        	Date tomorrow = Helpers.dateHelper(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+1+i)+"-0-0-0");
-        	if ( (start.getHours()>today.getHours()) && (end.getHours()<tomorrow.getHours()) ) {
-        		RectView rv = insertEvent(start.getHours(), start.getHours()-end.getHours(), 1);
-        		edit.addView(rv);
->>>>>>> 65136c6913292945aacda7172c732b13d82473e4
         	}
 	        for (int i=0;i<fakeData.size();i++) {
 	        	Date start = fakeData.get(i).startDate;
-	        	System.out.println(start.getDay());
-	        	System.out.println(start.getHours());
-	        	Date end = fakeData.get(i).endDate;
-	        	System.out.println(end.getHours());
-	        	System.out.println("_________________");
-	        	
+	        	Date end = fakeData.get(i).endDate;	        	
 	        	
 	        	if ( start.getDay()==j ) {
 	        		if (fakeData.get(i).colourCode == "blue") {
@@ -91,7 +93,9 @@ public class CalendarFragment extends Fragment {
 	        			color = 3;
 	        		} else if (fakeData.get(i).colourCode == "azure") {
 	        			color = 4;
-	        		} else color = 4;
+	        		} else { 
+	        			color = 4;
+	        		}
 	        		RectView rv = insertEvent(start.getHours(), end.getHours()-start.getHours(), color);
 	        		
 	        		
@@ -107,7 +111,6 @@ public class CalendarFragment extends Fragment {
 	        	}
 	        }
         }
-        
         
         return rootView;
     }

@@ -19,4 +19,8 @@ public class TimesheetEntry extends Entity implements Serializable{
 	public static TimesheetEntry getById(int id) {
 		return Entity.query(TimesheetEntry.class).where(eql("id", id)).execute();
 	}
+	
+	public boolean spansMultipleDays() {
+		return startDate.getDay() != endDate.getDay();
+	}
 }

@@ -20,6 +20,7 @@ import com.timetracks.models.GTTimesheetLink;
  * @author wgeorge
  */
 public interface BackendInterface {
+	public Date getMaxTimesheetEntryDate();
 	public List<Project> getAllProjects();
 	public void createProject(Project project);
 
@@ -29,6 +30,7 @@ public interface BackendInterface {
 	 * startDate and endDate will be returned.
 	 */
 	public List<TimesheetEntry> getTimesheetEntries(Date startDate, Date endDate);
+	public List<GTCluster> getGTClusters(Date startDate, Date endDate);
 	public List<GTCluster> getGTClustersForTimesheetEntries(List<TimesheetEntry> entryList);
 	
 	// I'm not sure this is what method you want.
