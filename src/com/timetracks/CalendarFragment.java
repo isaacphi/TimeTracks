@@ -31,14 +31,15 @@ public class CalendarFragment extends Fragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
-        RelativeLayout edit = null;
         
-		List<TimesheetEntry> fakeData = new ArrayList<TimesheetEntry>();
-		fakeData = TimesheetEntryValues.getEntries();
-		
+		return renderTimesheetEntries(rootView, TimesheetEntryValues.getEntries());
+    }
+    
+    View renderTimesheetEntries(View rootView, List<TimesheetEntry> fakeData) {		
+    	RelativeLayout edit = null;
 		String CURRENT_MONTH = "Nov ";
         String CURRENT_YEAR = "2013";
-<<<<<<< HEAD
+
         int START_DATE;
         int END_DATE;
         int color = 0;
@@ -59,18 +60,6 @@ public class CalendarFragment extends Fragment {
         		break;
         	case 6: edit = (RelativeLayout) rootView.findViewById(R.id.saturdayRelativeLayout);
         		break;
-=======
-        int START_DATE = 24;
-
-        for (int i=0;i<fakeData.size();i++) {
-        	Date start = fakeData.get(i).startDate;
-        	Date end = fakeData.get(i).endDate;
-        	Date today = Helpers.dateHelper(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+i)+"-0-0-0");
-        	Date tomorrow = Helpers.dateHelper(CURRENT_YEAR+"-11-"+String.valueOf(START_DATE+1+i)+"-0-0-0");
-        	if ( (start.getHours()>today.getHours()) && (end.getHours()<tomorrow.getHours()) ) {
-        		RectView rv = insertEvent(start.getHours(), start.getHours()-end.getHours(), 1);
-        		edit.addView(rv);
->>>>>>> 65136c6913292945aacda7172c732b13d82473e4
         	}
 	        for (int i=0;i<fakeData.size();i++) {
 	        	Date start = fakeData.get(i).startDate;
