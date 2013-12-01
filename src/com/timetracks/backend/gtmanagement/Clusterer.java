@@ -51,7 +51,7 @@ public class Clusterer {
 			return number*-1;	
 	}
 	
-	static List<GTCluster> cluster(List<GTPoint> pointList) {
+	public static List<GTCluster> cluster(List<GTPoint> pointList) {
 		List<GTCluster> gtcClusterList = new ArrayList<GTCluster>();
 		
 		// Variables 
