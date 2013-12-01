@@ -27,16 +27,19 @@ public class Backend implements BackendInterface {
 	public void createProject(Project project) {
 		project.save();		
 	}
+	
+	public List<TimesheetEntry> getAllTimesheetEntries() {
+		return Entity.query(TimesheetEntry.class).executeMulti();
+	}
 
 	@Override
-	public List<TimesheetEntry> getTimesheetEntries(Date startDate, Date endDate) {
-		return Entity.query(TimesheetEntry.class).where(and(geq("startDate", startDate), leq("endDate", endDate))).executeMulti();
+	public List<TimesheetEntry> getTimesheetEntries(Date startDateStart, Date startDateEnd) {
+		return Entity.query(TimesheetEntry.class).where(and(geq("startDate", startDateStart), leq("startDate", startDateEnd))).executeMulti();
 	}
 
 	@Override
 	public List<GTTimesheetLink> getTimesheetsAndGeos(Date startTime,
 			Date endtime) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

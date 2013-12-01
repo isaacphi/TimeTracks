@@ -23,11 +23,11 @@ public interface BackendInterface {
 	public List<Project> getAllProjects();
 	public void createProject(Project project);
 
-	public List<TimesheetEntry> getTimesheetEntries(Date startTime, Date endTime);
+	public List<TimesheetEntry> getTimesheetEntries(Date startDateStart, Date startDateEnd);
 	public List<GTCluster> getGTClustersForTimesheetEntries(List<TimesheetEntry> entryList);
 	
 	// I'm not sure this is what method you want.
-	public List<GTTimesheetLink> getTimesheetsAndGeos(Date startTime, Date endtime);
+	public List<GTTimesheetLink> getTimesheetsAndGeos(Date startDate, Date endDate);
 
 	public void setNoteToTimesheetEntry(TimesheetEntry entry, String note);
 	public void setProjectToTimesheetEntry(TimesheetEntry entry, Project project);
