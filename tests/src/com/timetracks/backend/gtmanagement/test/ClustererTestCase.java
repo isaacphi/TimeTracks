@@ -29,7 +29,7 @@ public class ClustererTestCase extends ApplicationTestCase<ORMDroidApplication>{
 			point.id = i;
 			point.x = xCoords[i];
 			point.y = yCoords[i];
-			point.date = new Date();
+			point.dates = new Date();
 			pointList.add(point);
 		}
 	}
