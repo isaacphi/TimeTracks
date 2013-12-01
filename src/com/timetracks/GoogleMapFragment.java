@@ -148,7 +148,7 @@ public class GoogleMapFragment extends Fragment {
 			Date startDate = ViewWindow.startDate;
 			Date endDate = ViewWindow.endDate;
 
-			List<GTCluster> clusters = dao.getGTClusters(startDate, endDate	);
+			List<GTCluster> clusters = dao.getGTClusters(startDate, endDate);
 
 			// Now populate the data, and prep data to be sent to the fragments
 			// For maps, we want c_x, c_y to reverse geocode, and display the dialog
@@ -172,7 +172,7 @@ public class GoogleMapFragment extends Fragment {
 				googleMap.addMarker(options);
 				count++;
 			}
-			if(result != null && result.size() > 0) {
+			if(result!=null &&result.size()>0) {
 				googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(result.get(0), 12));
 			}
 		}
