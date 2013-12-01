@@ -172,7 +172,9 @@ public class GoogleMapFragment extends Fragment {
 				googleMap.addMarker(options);
 				count++;
 			}
-			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(result.get(0), 12));
+			if(result != null && result.size() > 0) {
+				googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(result.get(0), 12));
+			}
 		}
 	}
 }
