@@ -81,13 +81,15 @@ public class BackendTest extends ApplicationTestCase<ORMDroidApplication>{
 	
 	public void testGetTimesheetEntries () {
 		assertEquals(0, backend.getAllTimesheetEntries().size());
-		Date[] dateRange = new Date[6];
+		Date[] dateRange = new Date[7];
 		dateRange[0] = Helpers.dateHelper("2013-12-01-09-00-00");
 		dateRange[1] = Helpers.dateHelper("2013-12-01-10-00-00");
 		dateRange[2] = Helpers.dateHelper("2013-12-01-11-00-00");
 		dateRange[3] = Helpers.dateHelper("2013-12-01-12-00-00");
 		dateRange[4] = Helpers.dateHelper("2013-12-01-13-00-00");
-		// will create 4 timesheet entries
+		dateRange[5] = Helpers.dateHelper("2013-12-01-14-00-00");
+		dateRange[6] = Helpers.dateHelper("2013-12-01-15-00-00");
+		// will create 6 timesheet entries
 		
 		for(int i=0; i<dateRange.length-1; i++) {
 			TimesheetEntry entry = new TimesheetEntry();
