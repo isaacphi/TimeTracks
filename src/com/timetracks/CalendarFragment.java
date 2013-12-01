@@ -27,25 +27,22 @@ public class CalendarFragment extends Fragment {
 	private static final int ID_VIEW_OTHER_FRAGMENT = 1;
 	private static final int ID_TAG = 2;
 	private static final int ID_EXCLUDE = 3;
-    
-	public BackendInterface backend;
 	
     @SuppressWarnings("deprecation")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-    	backend = BackendInjector.getBackend();
         final View rootView = inflater.inflate(R.layout.activity_calendar_fragment, container, false);
-        final RelativeLayout edit = (RelativeLayout) rootView.findViewById(R.id.tuesdayRelativeLayout);// mContainerIconExtension in your case
         
-        ViewWindow.calculateDates();
-        class GetTimesheetEntries extends AsyncTask<Date, Void, List<TimesheetEntry>> {
+        class GetTimesheetEntries extends AsyncTask<Void, Void, List<TimesheetEntry>> {
         	CalendarFragment container;
         	public GetTimesheetEntries(CalendarFragment container) {
         		this.container=container;
         	}
         	@Override
-        	protected List<TimesheetEntry> doInBackground(Date... dates) {
-        		return backend.getTimesheetEntries(dates[0], dates[1]);
+        	protected List<TimesheetEntry> doInBackground(Void...voids) {
+        		BackendInterface backend = BackendInjector.getBackend();
+        		ViewWindow.calculateDates();
+        		return backend.getTimesheetEntries(ViewWindow.startDate, ViewWindow.endDate);
         	}
         	@Override
         	protected void onPostExecute(List<TimesheetEntry> entriesList) {
@@ -53,45 +50,39 @@ public class CalendarFragment extends Fragment {
         	}   	
 
         }
-        new GetTimesheetEntries(this).execute(ViewWindow.startDate, ViewWindow.endDate);
-       
+        new GetTimesheetEntries(this).execute();       
         return rootView;
     }
 	
-    View renderTimesheetEntries(View rootView, List<TimesheetEntry> fakeData) {		
+    View renderTimesheetEntries(View rootView, List<TimesheetEntry> entriesList) {
     	RelativeLayout edit = null;
         int color = 0;
         
+        int[] viewIds = {
+        		R.id.sundayRelativeLayout,
+        		R.id.mondayRelativeLayout,
+        		R.id.tuesdayRelativeLayout,
+        		R.id.wednesdayRelativeLayout,
+        		R.id.thursdayRelativeLayout,
+        		R.id.fridayRelativeLayout,
+        		R.id.saturdayRelativeLayout,
+        };
+        
         for (int j=0;j<7;j++){
-        	switch(j){
-        	case 0: edit = (RelativeLayout) rootView.findViewById(R.id.sundayRelativeLayout);
-        		break;
-        	case 1: edit = (RelativeLayout) rootView.findViewById(R.id.mondayRelativeLayout);
-        		break;
-        	case 2: edit = (RelativeLayout) rootView.findViewById(R.id.tuesdayRelativeLayout);
-        		break;
-        	case 3: edit = (RelativeLayout) rootView.findViewById(R.id.wednesdayRelativeLayout);
-        		break;
-        	case 4: edit = (RelativeLayout) rootView.findViewById(R.id.thursdayRelativeLayout);
-        		break;
-        	case 5: edit = (RelativeLayout) rootView.findViewById(R.id.fridayRelativeLayout);
-        		break;
-        	case 6: edit = (RelativeLayout) rootView.findViewById(R.id.saturdayRelativeLayout);
-        		break;
-        	}
-	        for (int i=0;i<fakeData.size();i++) {
-	        	Date start = fakeData.get(i).startDate;
-	        	Date end = fakeData.get(i).endDate;	        	
+        	edit = (RelativeLayout) rootView.findViewById(viewIds[j]);
+	        for (int i=0;i<entriesList.size();i++) {
+	        	Date start = entriesList.get(i).startDate;
+	        	Date end = entriesList.get(i).endDate;	        	
 	        	
 	        	if ( start.getDay()==j ) {
-	        		if (fakeData.get(i).colourCode == "blue") {
+	        		if (entriesList.get(i).colourCode == "blue") {
 	        			color = 0;
-	        		} else if (fakeData.get(i).colourCode == "red") {
- 	        		} else if (fakeData.get(i).colourCode == "yellow") {
+	        		} else if (entriesList.get(i).colourCode == "red") {
+ 	        		} else if (entriesList.get(i).colourCode == "yellow") {
 	        			color = 2;
-	        		} else if (fakeData.get(i).colourCode == "orange") {
+	        		} else if (entriesList.get(i).colourCode == "orange") {
 	        			color = 3;
-	        		} else if (fakeData.get(i).colourCode == "azure") {
+	        		} else if (entriesList.get(i).colourCode == "azure") {
 	        			color = 4;
 	        		} else { 
 	        			color = 4;
