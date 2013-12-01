@@ -1,11 +1,14 @@
 package com.timetracks;
 
-import net.londatiga.android.ActionItem;
-import net.londatiga.android.QuickAction;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +18,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.timetracks.backend.Backend;
+import com.timetracks.backend.BackendInterface;
+import com.timetracks.models.GTCluster;
+import com.timetracks.models.TimesheetEntry;
 
 public class TimeSheetActivity extends FragmentActivity implements
 		ActionBar.TabListener {
@@ -138,6 +146,7 @@ public class TimeSheetActivity extends FragmentActivity implements
 	}
 	
 
+	
 
 }
 
