@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.londatiga.android.ActionItem;
 import net.londatiga.android.QuickAction;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
@@ -14,13 +15,14 @@ import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.timetracks.backend.BackendInterface;
+import com.timetracks.models.Project;
 import com.timetracks.models.TimesheetEntry;
 
 public class CalendarFragment extends Fragment {
@@ -28,6 +30,7 @@ public class CalendarFragment extends Fragment {
 	private static final int ID_TAG = 2;
 	private static final int ID_EXCLUDE = 3;
     
+	public OnMapSelectedListener mMapListener;
 	public BackendInterface backend;
 	
     @SuppressWarnings("deprecation")
@@ -57,6 +60,18 @@ public class CalendarFragment extends Fragment {
        
         return rootView;
     }
+    
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+        try {
+            mMapListener = (OnMapSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnMapSelectedListener");
+        }
+	}
+
 	
     View renderTimesheetEntries(View rootView, List<TimesheetEntry> fakeData) {		
     	RelativeLayout edit = null;
@@ -178,12 +193,17 @@ public QuickAction setQuickActionButtons()	{
 				ActionItem actionItem = quickAction.getActionItem(pos);
 				
 				if (actionId == ID_VIEW_OTHER_FRAGMENT) {
-					// Start Activity of view Other Fragment
+					// Instead of sending Intent and activity here, use interface to wire over
+					mMapListener.onMapSelected(null); // TODO: get Project here.
+					
 					
 				} else if (actionId == ID_TAG) {
-					// Select Activity of Tagging or Retagging
+					Intent i2 = new Intent(getActivity(), TagProjectActivity.class);
+					startActivity(i2);
 				} else {
 					// Start Activity of Exclude
+					Intent i3 = new Intent(getActivity(), ExcludeLocationActivity.class);
+					startActivity(i3);
 				}
 			}
 		});
@@ -197,4 +217,8 @@ public QuickAction setQuickActionButtons()	{
 		return quickAction;
 	} 
 	
+	public interface OnMapSelectedListener	{
+		public void onMapSelected(Project project);
+	}
+
 }

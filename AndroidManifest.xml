@@ -53,14 +53,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.timetracks.CalendarFragment"
-            android:label="@string/title_activity_calendar_fragment" >
-        </activity>
-        <activity
-            android:name="com.timetracks.GoogleMapFragment"
-            android:label="@string/title_activity_map_fragment" >
-        </activity>
 
         <meta-data
             android:name="ormdroid.database.name"
