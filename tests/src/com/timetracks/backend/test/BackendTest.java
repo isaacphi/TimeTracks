@@ -109,7 +109,6 @@ public class BackendTest extends ApplicationTestCase<ORMDroidApplication>{
 		List<TimesheetEntry> entryList = backend.getTimesheetEntries(
 												dateHelper("2013-12-01-9-15-00"),
 												dateHelper("2013-12-01-11-30-00"));
-		assertEquals(2, entryList.size());		
-		//assertEqual(3, entryList.size());		
+		assertEquals(3, entryList.size());		
 	}
 }

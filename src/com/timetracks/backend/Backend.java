@@ -1,5 +1,6 @@
 package com.timetracks.backend;
 
+import static com.roscopeco.ormdroid.Query.or;
 import static com.roscopeco.ormdroid.Query.and;
 import static com.roscopeco.ormdroid.Query.eql;
 import static com.roscopeco.ormdroid.Query.geq;
@@ -33,8 +34,10 @@ public class Backend implements BackendInterface {
 	}
 
 	@Override
-	public List<TimesheetEntry> getTimesheetEntries(Date startDateStart, Date startDateEnd) {
-		return Entity.query(TimesheetEntry.class).where(and(geq("startDate", startDateStart), leq("startDate", startDateEnd))).executeMulti();
+	public List<TimesheetEntry> getTimesheetEntries(Date startDate, Date endDate) {
+		return Entity.query(TimesheetEntry.class).where(
+			or(and(geq("startDate", startDate), leq("startDate", endDate)),
+			   and(geq("endDate",   startDate), leq("endDate",   endDate)))).executeMulti();
 	}
 
 	@Override

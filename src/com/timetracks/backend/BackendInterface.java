@@ -23,7 +23,12 @@ public interface BackendInterface {
 	public List<Project> getAllProjects();
 	public void createProject(Project project);
 
-	public List<TimesheetEntry> getTimesheetEntries(Date startDateStart, Date startDateEnd);
+	/**
+	 * Returns any TimesheetEntry objects that <em>intersects</em> the provided
+	 * date range. I.e. any with entry.startDate or entry.endDate between
+	 * startDate and endDate will be returned.
+	 */
+	public List<TimesheetEntry> getTimesheetEntries(Date startDate, Date endDate);
 	public List<GTCluster> getGTClustersForTimesheetEntries(List<TimesheetEntry> entryList);
 	
 	// I'm not sure this is what method you want.
