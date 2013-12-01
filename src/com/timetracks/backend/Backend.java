@@ -117,6 +117,6 @@ public class Backend implements BackendInterface {
 	@Override
 	public Date getMaxTimesheetEntryDate() {
 		// default to current time
-		return new Date();
+		return Entity.query(TimesheetEntry.class).orderBy("endDate").execute().endDate;
 	}
 }
