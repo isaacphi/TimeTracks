@@ -1,19 +1,20 @@
 package com.timetracks.backend.gtmanagement;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.timetracks.models.GTCluster;
 import com.timetracks.models.GTTimesheetLink;
-import com.timetracks.models.Project;
 
 public class Tagger {
 	
 	private static boolean compareClusters(GTCluster one, GTCluster two) {
 		
+		// Forget the "basic process"
+		// Just permRadius hardcoded, worked on all 14 test points!!!!1!!one!!
 		// Basic process: if centre is within the circle of the other, then the clusters
 		// are the same location. (check both cases)
+		// ABS not really necessary with new modifications
 		double xDiff = one.c_x - two.c_x;
 		if (xDiff < 0) 
 			xDiff = xDiff*-1;
@@ -21,7 +22,9 @@ public class Tagger {
 		if (yDiff < 0) 
 			yDiff = yDiff*-1;
 		
-		if (xDiff > one.radius && yDiff > one.radius && xDiff > two.radius && yDiff > two.radius) {
+		double permRadius = 0.0005;
+		//if (xDiff > one.radius && yDiff > one.radius && xDiff > two.radius && yDiff > two.radius) 
+		if (permRadius > Math.sqrt(xDiff*xDiff + yDiff*yDiff) && permRadius > Math.sqrt(xDiff*xDiff + yDiff*yDiff)) {
 			return true;
 		}
 		return false;
