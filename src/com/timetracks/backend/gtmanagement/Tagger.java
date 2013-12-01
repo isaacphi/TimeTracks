@@ -1,5 +1,6 @@
 package com.timetracks.backend.gtmanagement;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import com.timetracks.models.Project;
 
 public class Tagger {
 	
-	private boolean compareClusters(GTCluster one, GTCluster two) {
+	private static boolean compareClusters(GTCluster one, GTCluster two) {
 		
 		// Basic process: if centre is within the circle of the other, then the clusters
 		// are the same location. (check both cases)
@@ -21,11 +22,15 @@ public class Tagger {
 			yDiff = yDiff*-1;
 		
 		if (xDiff > one.radius && yDiff > one.radius && xDiff > two.radius && yDiff > two.radius) {
-			return true
-		
+			return true;
+		}
+		return false;
 	}
+	
 	static List<GTTimesheetLink> createTimesheetEntriesFor(List<GTCluster> clusterList) {
 
+			List<GTTimesheetLink> gttList = new ArrayList<GTTimesheetLink>();
+			
 			// For all clusters in clusterList
 			for (int i = 0; i < clusterList.size(); i++) {
 				 
@@ -66,25 +71,11 @@ public class Tagger {
 						j = 0;
 					}
 				}
-					
-					}
-						
-				}
 				
-				
+				gttList.add(link);
 						
-		//else: (cluster doesnt exist)	
-			// Save cluster
-
-
-					
-					
-		
-					
-		}
-		
-		
-		return null;
+			}
+		return gttList;
 	
 	}
 }
