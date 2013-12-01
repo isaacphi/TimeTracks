@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -103,7 +104,6 @@ public class TimeSheetActivity extends FragmentActivity implements
             case R.id.action_legend:
             	return true;
             case R.id.action_settings:
-
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
