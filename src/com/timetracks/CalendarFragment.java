@@ -29,27 +29,27 @@ public class CalendarFragment extends Fragment {
         final RelativeLayout edit = (RelativeLayout) rootView.findViewById(R.id.tuesdayRelativeLayout);// mContainerIconExtension in your case
         
         ViewWindow.calculateDates();
-        class GetTimesheetEntries extends AsyncTask<Date, Void, Void> {
-        	public List<TimesheetEntry> entriesList;
-        	@Override
-        	protected Void doInBackground(Date... dates) {
-        		entriesList = backend.getTimesheetEntries(dates[0], dates[1]);
-        		return null;
+        class GetTimesheetEntries extends AsyncTask<Date, Void, List<TimesheetEntry>> {
+        	CalendarFragment container;
+        	public GetTimesheetEntries(CalendarFragment container) {
+        		this.container=container;
         	}
         	@Override
-        	protected void onPostExecute(Void voids) {
-        		for(TimesheetEntry entry: entriesList) {
-        			if(!entry.spansMultipleDays()) {
-        				int height = entry.endDate.getHours() - entry.startDate.getHours();
-                		RectView rv = insertEvent(entry.startDate.getHours(), height, 1);
-                		edit.addView(rv);
-        			}
-        		}
+        	protected List<TimesheetEntry> doInBackground(Date... dates) {
+        		return backend.getTimesheetEntries(dates[0], dates[1]);
+        	}
+        	@Override
+        	protected void onPostExecute(List<TimesheetEntry> entriesList) {
+        		this.container.renderTimesheetEntries(entriesList);
         	}   	
         }
-        new GetTimesheetEntries().execute(ViewWindow.startDate, ViewWindow.endDate);
+        new GetTimesheetEntries(this).execute(ViewWindow.startDate, ViewWindow.endDate);
        
         return rootView;
+    }
+    
+    protected void renderTimesheetEntries(List<TimesheetEntry> timesheetEntryList) {
+    	
     }
 	
 	private class RectView extends View{
