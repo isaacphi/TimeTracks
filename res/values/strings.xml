@@ -50,5 +50,8 @@
     <string name="title_activity_new_project">Create New Project</string>
     <string name="ok">OK</string>
     <string name="multi_spinner">MultiSpinner</string>
+    <string name="always_exclude">Remember exclusion</string>
+    <string name="okay">OK</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
